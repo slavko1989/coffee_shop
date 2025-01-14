@@ -9,7 +9,3 @@ Route::controller(ProductController::class)->group(function() {
 
 
 });
-
-Route::get('/', function () {
-    return view('welcome');
-});
