@@ -10,11 +10,9 @@
   <div class="flex min-h-screen">
         @include('coffee_shop/sidebar')
         <div id="app">
-            <product-list  :products="{{ json_encode($products) }}"></product-list>
+            <category-list  :categories="{{ json_encode($categories) }}"></category-list>
         </div>
 
         <script src="{{ mix('js/app.js') }}"></script>
   </div>
 @include('coffee_shop/footer')
-
-

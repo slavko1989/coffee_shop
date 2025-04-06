@@ -16,6 +16,8 @@ class ProductFactory extends Factory
      */
     public function definition(): array
     {
+
+        $price = $this->faker->randomFloat(2, 50, 1000);
         $flavors = [
             'Black', 'Espresso', 'Cappuccino', 'Latte', 'Mocha',
             'Caramel', 'Vanilla', 'Hazelnut', 'Irish Cream', 'Coconut',
@@ -28,8 +30,14 @@ class ProductFactory extends Factory
         return [
             'name'=>$this->faker->randomElement($flavors),
             'category_id'=>\App\Models\Category::factory(),
-            'price'=> $this->faker->randomFloat(2,5,100),
-            'description'=>$this->faker->paragraph
+            //'price'=> $this->faker->randomFloat(2,5,100),
+            'price' => $price,
+            'description'=>$this->faker->paragraph,
+            'cost_price' => $this->faker->randomElement([
+                $price * 0.8,     // 80% of price
+                $price * 0.75,    // 75% of price
+                $price * 0.85,    // 85% of price
+            ]),
         ];
     }
 }

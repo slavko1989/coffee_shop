@@ -5,6 +5,7 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Product;
 use App\Models\Country;
+use App\Models\SalesPerson;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Order>
@@ -18,12 +19,20 @@ class OrderFactory extends Factory
      */
     public function definition(): array
     {
+        $product = Product::inRandomOrder()->first();
+        $quantity = $this->faker->numberBetween(1, 10000);
+
         return [
 
             'product_id' => Product::inRandomOrder()->value('id'), // Assign existing Product ID
-            'country_id' => Country::inRandomOrder()->value('id'), // Assign existing Country ID
-            'quantity' => $this->faker->numberBetween(1, 10),
+            'country_id' => Country::inRandomOrder()->value('id'),
+            'salesperson_id' => SalesPerson::inRandomOrder()->value('id'), // Assign existing Country ID
+            //'quantity' => $this->faker->numberBetween(1, 10),
+            'quantity' => $quantity,
             'order_date' => $this->faker->dateTimeBetween('-10 years', 'now'),
+            'status' => $this->faker->randomElement(['pending', 'completed', 'canceled']),
+            'profit' => ($product->price - $product->cost_price) * $quantity,
+
 /*
    'order_number' => $this->faker->unique()->numerify('ORD-#####'), // Generates unique order numbers like ORD-12345
         'salesperson_id' => Salesperson::inRandomOrder()->value('id'),   // Random salesperson

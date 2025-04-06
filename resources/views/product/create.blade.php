@@ -9,8 +9,12 @@
 
   <div class="flex min-h-screen">
         @include('coffee_shop/sidebar')
+
+        @if(session()->has('message'))
+        {{ session()->get('message') }}
+        @endif
         <div id="app">
-            <product-list  :products="{{ json_encode($products) }}"></product-list>
+            <create-product :category="{{ json_encode($category) }}"></create-product>
         </div>
 
         <script src="{{ mix('js/app.js') }}"></script>
